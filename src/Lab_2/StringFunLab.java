@@ -10,7 +10,67 @@ public class StringFunLab {
     private static String targetString = "";
 
     public static void main(String[] args) {
-        System.out.println(reverseText("fed cba"));
+        Scanner usrInput = new Scanner(System.in);
+        String[] inputArray;
+
+        System.out.println("Enter the String you want to play");
+        enterNewString(usrInput.nextLine());
+
+        System.out.println("Enter the command to play with String");
+        inputArray = usrInput.nextLine().split(" ");
+        System.out.println(inputArray[0].toUpperCase());
+
+        while (true) {
+            switch (inputArray[0].toUpperCase()) {
+
+                case "REVERSETEXT": System.out.println(reverseText(targetString));
+                case "REVERSEEACHSTRING": System.out.println(reverseEachWord());
+                case "PRINTSTRING": printString();
+                case "SEARCHTEXT": {
+                    for (int i = 1; i < inputArray.length; i++) {
+                        if (inputArray[i] != null) {
+                            System.out.println(inputArray[1].charAt(0));
+                            System.out.println(searchText(inputArray[i].charAt(0)));
+                            break;
+                        } else {
+                            if (i == inputArray.length - 1) {
+                                System.out.println("INVALID ARGUMENTS");
+                                methodUsagePrint();
+                                break;
+                            } else {
+                                continue;
+                            }
+                        }
+                    }
+                }
+                case "REMOVETEXT": {
+                    System.out.println(inputArray[1]);
+                }
+                case "ADDTEXT": {
+                    String charSet;
+                    int position;
+                        try {
+                            position = Integer.parseInt(inputArray[1]);
+                            charSet = inputArray[2];
+                        } catch (Exception e) {
+                            charSet = inputArray[1];
+                            position = Integer.parseInt(inputArray[2]);
+                        }
+                    System.out.println(addText(position, charSet));
+                    }
+                case "ENTERNEWSTRING": enterNewString(inputArray[1]);
+                case "QUIT": {
+                    usrInput.close();
+                    System.exit(000);
+                }
+                default: {
+                    System.out.println("INVALID ARGUMENT DETECTED; ENTER NEW COMMAND");
+                    methodUsagePrint();
+                }
+            }
+            System.out.print("Enter Command: ");
+            inputArray = usrInput.nextLine().split(" ");
+        }
     }
 
     // This method accepts single char for searching.
@@ -88,15 +148,32 @@ public class StringFunLab {
         return result;
     }
 
-    public static void printString(String targetString) {
+    public static void printString() {
         System.out.println(targetString);
     }
 
     public static void enterNewString(String newString) {
+        if (newString.compareTo("") == 0) {
+            System.out.println("Please enter the valid String that you want to play");
+        }
         targetString = newString;
+        System.out.println("String is set");
+    }
+
+    public static void methodUsagePrint() {
+        System.out.println("Usage - enter one of the following Commands:\n\n" +
+                "searchText [text]: prints the index of [text] in the String, leaves it unchanged.\n" +
+                "removeText [text] - deletes all occurences of [text] in the String.\n" +
+                "addText [i] [text] - first argument is an integer between 0 and and the length of the string; adds [text] at that location in the string.\n" +
+                "reverseText [no argument] - makes the string into its mirror image.\n" +
+                "reverseEachWord [no argument] - like reverseText but applies to each command word individually. printString [no argument] - prints the current value of the string.\n" +
+                "enterNewString [text] - overwites whatever the string was with [text] instead.\n" +
+                "quit [no argument] - exits the program.");
     }
 
     public static void quit() {
         System.exit(100);
     }
 }
+
+// enum MethodType{SEARCHTEXT, REMOVETEXT, ADDTEXT, REVERSETEXT, REVERSEEACHWORD, ENTHERNEWSTRING, QUIT}

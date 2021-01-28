@@ -51,7 +51,6 @@ public class FountainLab {
         double waterNeededInGallon = waterVolumeInCubFeet * 7.481;
         // Gallons of water are sold in whole units. Need to be rounded.
         double waterNeededInGallonRounded = Math.ceil(waterNeededInGallon);
-
         System.out.println("Water Volume in Cubic Feet: " + waterVolumeInCubFeet);
         System.out.println("Water Volume in Gallons: " + waterNeededInGallon);
         // 1 gallon of water will cost Felix's Fountains 10 cents to provide.
