@@ -171,9 +171,22 @@ public class StringFunLab {
                 "quit [no argument] - exits the program.");
     }
 
+    public static MethodType methodTypeHandle(String input) {
+        switch (input.toUpperCase()) {
+            case "SEARCHTEXT": return MethodType.SEARCHTEXT;
+            case "REMOVETEXT": return MethodType.REMOVETEXT;
+            case "ADDTEXT": return MethodType.ADDTEXT;
+            case "REVERSETEXT": return MethodType.REVERSETEXT;
+            case "REVERSEEACHWORD": return MethodType.REVERSEEACHWORD;
+            case "ENTERNEWSTRING": return MethodType.ENTHERNEWSTRING;
+            case "QUIT": return MethodType.QUIT;
+            default: return MethodType.NA;
+        }
+    }
+
     public static void quit() {
         System.exit(100);
     }
 }
 
-// enum MethodType{SEARCHTEXT, REMOVETEXT, ADDTEXT, REVERSETEXT, REVERSEEACHWORD, ENTHERNEWSTRING, QUIT}
+enum MethodType{SEARCHTEXT, REMOVETEXT, ADDTEXT, REVERSETEXT, REVERSEEACHWORD, ENTHERNEWSTRING, QUIT, NA}
