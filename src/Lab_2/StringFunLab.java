@@ -21,12 +21,12 @@ public class StringFunLab {
         System.out.println(inputArray[0].toUpperCase());
 
         while (true) {
-            switch (inputArray[0].toUpperCase()) {
+            switch (methodTypeHandle(inputArray[0])) {
 
-                case "REVERSETEXT": System.out.println(reverseText(targetString));
-                case "REVERSEEACHSTRING": System.out.println(reverseEachWord());
-                case "PRINTSTRING": printString();
-                case "SEARCHTEXT": {
+                case REVERSETEXT: System.out.println(reverseText(targetString));
+                case REVERSEEACHWORD: System.out.println(reverseEachWord());
+                case PRINTSTRING: printString();
+                case SEARCHTEXT: {
                     for (int i = 1; i < inputArray.length; i++) {
                         if (inputArray[i] != null) {
                             System.out.println(inputArray[1].charAt(0));
@@ -43,10 +43,10 @@ public class StringFunLab {
                         }
                     }
                 }
-                case "REMOVETEXT": {
-                    System.out.println(inputArray[1]);
+                case REMOVETEXT: {
+                    //System.out.println(inputArray[1]);
                 }
-                case "ADDTEXT": {
+                case ADDTEXT: {
                     String charSet;
                     int position;
                         try {
@@ -58,8 +58,8 @@ public class StringFunLab {
                         }
                     System.out.println(addText(position, charSet));
                     }
-                case "ENTERNEWSTRING": enterNewString(inputArray[1]);
-                case "QUIT": {
+                case ENTHERNEWSTRING: enterNewString(inputArray[1]);
+                case QUIT: {
                     usrInput.close();
                     System.exit(000);
                 }
@@ -179,6 +179,7 @@ public class StringFunLab {
             case "REVERSETEXT": return MethodType.REVERSETEXT;
             case "REVERSEEACHWORD": return MethodType.REVERSEEACHWORD;
             case "ENTERNEWSTRING": return MethodType.ENTHERNEWSTRING;
+            case "PRINTSTRING": return MethodType.PRINTSTRING;
             case "QUIT": return MethodType.QUIT;
             default: return MethodType.NA;
         }
@@ -189,4 +190,4 @@ public class StringFunLab {
     }
 }
 
-enum MethodType{SEARCHTEXT, REMOVETEXT, ADDTEXT, REVERSETEXT, REVERSEEACHWORD, ENTHERNEWSTRING, QUIT, NA}
+enum MethodType{SEARCHTEXT, REMOVETEXT, ADDTEXT, REVERSETEXT, REVERSEEACHWORD, ENTHERNEWSTRING,PRINTSTRING, QUIT, NA}
