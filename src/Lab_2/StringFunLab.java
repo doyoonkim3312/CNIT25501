@@ -23,9 +23,18 @@ public class StringFunLab {
         while (true) {
             switch (methodTypeHandle(inputArray[0])) {
 
-                case REVERSETEXT: System.out.println(reverseText(targetString));
-                case REVERSEEACHWORD: System.out.println(reverseEachWord());
-                case PRINTSTRING: printString();
+                case REVERSETEXT: {
+                    System.out.println(reverseText(targetString));
+                    break;
+                }
+                case REVERSEEACHWORD: {
+                    System.out.println(reverseEachWord());
+                    break;
+                }
+                case PRINTSTRING: {
+                    printString();
+                    break;
+                }
                 case SEARCHTEXT: {
                     for (int i = 1; i < inputArray.length; i++) {
                         if (inputArray[i] != null) {
@@ -42,9 +51,11 @@ public class StringFunLab {
                             }
                         }
                     }
+                    break;
                 }
                 case REMOVETEXT: {
-                    //System.out.println(inputArray[1]);
+                    removeText(inputArray[1]);
+                    break;
                 }
                 case ADDTEXT: {
                     String charSet;
@@ -57,8 +68,16 @@ public class StringFunLab {
                             position = Integer.parseInt(inputArray[2]);
                         }
                     System.out.println(addText(position, charSet));
+                    break;
                     }
-                case ENTHERNEWSTRING: enterNewString(inputArray[1]);
+                case ENTHERNEWSTRING: {
+                    String newString = "";
+                    for (int i = 1; i < inputArray.length; i++) {
+                        newString += inputArray[i];
+                        enterNewString(newString);
+                    }
+                    break;
+                }
                 case QUIT: {
                     usrInput.close();
                     System.exit(000);
@@ -66,6 +85,7 @@ public class StringFunLab {
                 default: {
                     System.out.println("INVALID ARGUMENT DETECTED; ENTER NEW COMMAND");
                     methodUsagePrint();
+                    break;
                 }
             }
             System.out.print("Enter Command: ");
@@ -74,12 +94,13 @@ public class StringFunLab {
     }
 
     // This method accepts single char for searching.
-    public static double searchText(char targetChar) {
+    public static int searchText(char targetChar) {
         int placeCounter = 0;
         boolean isCharacterFound = false;
 
         for (int i = 0; i < targetString.length(); i++) {
             if (targetString.charAt(i) == targetChar) {
+                isCharacterFound = true;
                 break;
             } else {
                 placeCounter++;
@@ -95,7 +116,6 @@ public class StringFunLab {
 
     public static String removeText(String targetCharSet) {
         String result = "";
-
         for (int i = 0; i < targetCharSet.length(); i++) {
             for (int j = 0; j < targetString.length(); j++) {
                 if (targetCharSet.charAt(i) == targetString.charAt(j)) {
@@ -104,8 +124,9 @@ public class StringFunLab {
                     result += targetString.charAt(j);
                 }
             }
+            targetString = result;
+            result = "";
         }
-        targetString = result;
         return result;
     }
 
@@ -142,7 +163,11 @@ public class StringFunLab {
         String result = "";
 
         for (int i = 0; i < tarString.length; i++) {
-            result += reverseText(tarString[i]);
+            if (i == tarString.length - 1) {
+                result += reverseText(tarString[i]);
+            } else {
+                result += reverseText(tarString[i]) + " ";
+            }
         }
         targetString = result;
         return result;
