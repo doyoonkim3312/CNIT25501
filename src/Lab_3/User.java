@@ -30,7 +30,7 @@ public class User {
         return nickName;
     }
 
-    private UUID getUserUniqueId() {
+    public UUID getUserUniqueId() {
         return this.userUniqueId;
     }
 

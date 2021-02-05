@@ -4,26 +4,40 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Message {
-    private UUID sender;
-    private UUID recevier;
+    private UUID messageId;
     private String message;
+    private Client sender, receiver;
+    private Date date;
+    private boolean isIdGenerated = false;
 
-    public Message(UUID sender, UUID recevier, String message) {
+    public Message (Client sender, Client receiver, String message) {
         this.sender = sender;
-        this.recevier = recevier;
+        this.receiver = receiver;
         this.message = message;
-    }
-
-    public UUID getSender() {
-        return sender;
-    }
-
-    public UUID getRecevier() {
-        return recevier;
+        this.date = new Date();
     }
 
     public String getMessage() {
         return message;
+    }
+
+    public String getSenderNickName() {
+        return sender.getNickName();
+    }
+
+    public String getReceiverNickName() {
+        return receiver.getNickName();
+    }
+
+    public String getStringFormatDate() {
+        return date.toString();
+    }
+
+    private void setMessageId() {
+        if (!isIdGenerated) {
+            this.messageId = UUID.randomUUID();
+            isIdGenerated = true;
+        }
     }
 
 }
