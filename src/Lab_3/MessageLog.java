@@ -6,14 +6,13 @@ import java.util.UUID;
 public class MessageLog extends Chatroom implements Chatting{
     final private UUID messageLogId = generateLogId();
     private ArrayList<Message> messages = new ArrayList<Message>();
-    private boolean isIdGenerated = false;
 
     public MessageLog(Client user1, Client user2) {
         super(user1, user2);
     }
 
     public void printHistory() {
-        System.out.println("CHAT HISTORY between [" + getUser1NickName() +"] [" + getUser2NickName() +"]" );
+        System.out.println("CHAT HISTORY between " + getUserNickNameInChatroom());
         for (int i = 0; i < messages.size(); i++) {
             if (messages.get(i) == null) {
                 continue;
@@ -24,6 +23,20 @@ public class MessageLog extends Chatroom implements Chatting{
         }
     }
 
+    // This method only removes message String.
+    public void notifyChanges(Message message) {
+        for (int i = 0; i < messages.size(); i++) {
+            if (messages.get(i).getMessageId() == message.getMessageId()) {
+                messages.get(i).setMessage(message.getMessage());
+            } else {
+                continue;
+            }
+        }
+    }
+
+    public UUID getMessageLogId() {
+        return messageLogId;
+    }
 
     private UUID generateLogId() {
         return UUID.randomUUID();
@@ -35,7 +48,7 @@ public class MessageLog extends Chatroom implements Chatting{
     }
 
     @Override
-    public Message receiveMessage() {
+    public Message receiveMessage(MessageLog messageLog) {
         return null;
     }
 }
