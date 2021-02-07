@@ -23,12 +23,12 @@ public class ChattingDemo {
             } else {
                 switch(currentSender) {
                     case USER1: {
-                        messageLog.sendMessage(testClient, TA, usrInput);
+                        messageLog.sendMessage(new Message(testClient, TA, usrInput));
                         currentSender = SenderRotation.USER2;
                         break;
                     }
                     case USER2: {
-                        messageLog.sendMessage(TA,testClient, usrInput);
+                        messageLog.sendMessage(new Message(TA, testClient, usrInput));
                         currentSender = SenderRotation.USER1;
                         break;
                     }

@@ -30,8 +30,8 @@ public class MessageLog extends Chatroom implements Chatting{
     }
 
     @Override
-    public void sendMessage(Client sender, Client receiver, String message) {
-        messages.add(new Message(sender, receiver, message));
+    public void sendMessage(Message message) {
+        messages.add(message);
     }
 
     @Override

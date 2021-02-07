@@ -30,5 +30,4 @@ public class Client  extends User {
         return userType;
     }
 
-    
 }
