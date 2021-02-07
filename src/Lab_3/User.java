@@ -7,15 +7,13 @@ public class User {
     private String lastName;
     private String nickName;
     private String userPw;
-    private UUID userUniqueId;
-    private boolean isIdGenerated = false;
+    final private UUID userUniqueId = generateUUID();
 
     public User(String firstName, String lastName, String nickName, String userPw) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.userPw = userPw;
-        setUserUniqueId();
+        setFirstName(firstName);
+        setLastName(lastName);
+        setNickName(nickName);
+        setUserPw(userPw);
     }
 
     public String getFirstName() {
@@ -30,34 +28,50 @@ public class User {
         return nickName;
     }
 
+    public String getUserPw() {
+        return userPw;
+    }
+
     public UUID getUserUniqueId() {
         return this.userUniqueId;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = inputStringValidator(firstName);
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = inputStringValidator(lastName);
     }
 
     public void setNickName(String nickName) {
-        this.nickName = nickName;
+        this.nickName = inputStringValidator(nickName);
     }
 
     public void setUserPw(String userPw) {
         this.userPw = userPw;
     }
 
-    public void setUserUniqueId() {
-        if (!isIdGenerated) {
-            this.userUniqueId = generateUUID();
+    public String inputStringValidator(String inputString) {
+        String[] stringList = inputString.split("");
+        String validateString = "";
+
+        for (int i = 0; i < stringList.length; i++) {
+            try {
+                if (stringList[i].equals(" ")) {
+                    continue;
+                } else {
+                    validateString += stringList[i];
+                }
+            } catch (NullPointerException npe) {
+                validateString = " ";
+                break;
+            }
         }
+        return validateString;
     }
-    
+
     private UUID generateUUID() {
-        isIdGenerated = true;
         return UUID.randomUUID();
     }
 }
