@@ -1,33 +1,50 @@
 package Lab_3;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class Chatroom {
-    private UUID chatroomId;
-    private Client user1;
-    private Client user2;
+    final private UUID chatroomId = setChatroomId();
+    private ArrayList<Client> users = new ArrayList<Client>();
     private String chatroomName = "";
-    private boolean isIdGenerated = false;
 
     public Chatroom (Client user1, Client user2) {
-        this.user1 = user1;
-        this.user2 = user2;
+        users.add(user1);
+        users.add(user2);
         setChatroomId();
     }
 
-    private void setChatroomId() {
-        if (!isIdGenerated) {
-            this.chatroomId = UUID.randomUUID();
-            isIdGenerated = true;
+    private UUID setChatroomId() {
+        return UUID.randomUUID();
+    }
+
+    public void setChatroomName(String chatroomName) {
+        this.chatroomName = chatroomName;
+    }
+
+    public String getChatroomName() {
+        return chatroomName;
+    }
+
+    public String getUserNickNameInChatroom() {
+        String userInChatRoom = "";
+        for (int i = 0; i < users.size(); i++) {
+            try {
+                userInChatRoom += " " + users.get(i).getNickName();
+            } catch (Exception e) {
+                continue;
+            }
         }
+        return userInChatRoom;
     }
 
-    public String getUser1NickName() {
-        return user1.getNickName();
+    public void removeUserFromChatroom(Client targetUser) {
+
     }
 
-    public String getUser2NickName() {
-        return user2.getNickName();
+    public UUID getChatroomId() {
+        return chatroomId;
     }
 
 }
