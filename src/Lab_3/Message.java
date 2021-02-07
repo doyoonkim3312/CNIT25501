@@ -4,11 +4,10 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Message {
-    private UUID messageId;
+    final private UUID messageId = setMessageId();
     private String message;
-    private Client sender, receiver;
-    private Date date;
-    private boolean isIdGenerated = false;
+    final private Client sender, receiver;
+    final Date date;
 
     public Message (Client sender, Client receiver, String message) {
         this.sender = sender;
@@ -33,11 +32,16 @@ public class Message {
         return date.toString();
     }
 
-    private void setMessageId() {
-        if (!isIdGenerated) {
-            this.messageId = UUID.randomUUID();
-            isIdGenerated = true;
-        }
+    public void setMessage(String messge) {
+        this.message = messge;
+    }
+
+    public UUID getMessageId() {
+        return messageId;
+    }
+
+    private UUID setMessageId() {
+        return UUID.randomUUID();
     }
 
 }
