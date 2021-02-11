@@ -9,7 +9,7 @@ public class Chatroom {
     private ArrayList<Client> users = new ArrayList<Client>();
     private String chatroomName = "";
 
-    public Chatroom (Client user1, Client user2) {
+    public Chatroom(Client user1, Client user2) {
         users.add(user1);
         users.add(user2);
         setChatroomId();
@@ -21,6 +21,10 @@ public class Chatroom {
 
     public void setChatroomName(String chatroomName) {
         this.chatroomName = chatroomName;
+    }
+
+    public ArrayList<Client> getUserList() {
+        return users;
     }
 
     public String getChatroomName() {
@@ -46,5 +50,4 @@ public class Chatroom {
     public UUID getChatroomId() {
         return chatroomId;
     }
-
 }
