@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class UserDB {
     private ArrayList<User> UserList = new ArrayList<>();
 
-    public void addItems(Client client) {
-        User item = new User(client);
+    public void addItems(User user) {
+        User item = new User(user);
         UserList.add(item);
     }
 
@@ -29,6 +29,18 @@ public class UserDB {
                 UserList.remove(i);
             }
         }
+    }
+
+    public boolean nickNameValidation(String nickName) {
+        boolean validataion = false;
+        for (int i = 0; i < UserList.size(); i++) {
+            if (UserList.get(i).getNickName().equals(nickName)) {
+                validataion = true;
+            } else {
+                continue;
+            }
+        }
+        return validataion;
     }
 
 }
