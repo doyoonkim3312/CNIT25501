@@ -11,16 +11,44 @@ public class MessageLog extends Chatroom implements Chatting{
         super(user1, user2);
     }
 
-    public void printHistory() {
-        System.out.println("CHAT HISTORY between " + getUserNickNameInChatroom());
-        for (int i = 0; i < messages.size(); i++) {
-            if (messages.get(i) == null) {
-                continue;
-            } else {
-                System.out.println("At ("+ messages.get(i).getStringFormatDate() + "), " + messages.get(i).getSenderNickName() + " said: "
-                        + messages.get(i).getMessage());
+    public void printHistory(Client client) {
+        if (clientValidation(client)) {
+            System.out.println("CHAT HISTORY between " + getUserNickNameInChatroom());
+            for (int i = 0; i < messages.size(); i++) {
+                if (messages.get(i) == null) {
+                    continue;
+                } else {
+                    System.out.println("At ("+ messages.get(i).getStringFormatDate() + "), " + messages.get(i).getSenderNickName() + " said: "
+                            + messages.get(i).getMessage());
+                }
+            }
+        } else {
+            System.out.println("Access Denied.");
+        }
+
+    }
+
+    public boolean clientValidation(Client client) {
+        boolean accessValidation = false;
+
+        switch (client.getUserType()) {
+            case CLIENT: {
+                for (int i = 0; i < super.getUserList().size(); i++) {
+                    if (client.getUserUniqueId() == super.getUserList().get(i).getUserUniqueId()) {
+                        accessValidation = true;
+                    }
+                }
+                break;
+            }
+            case MANAGER: {
+                accessValidation = true;
+                break;
+            }
+            default: {
+                break;
             }
         }
+        return accessValidation;
     }
 
     // This method only removes message String.
