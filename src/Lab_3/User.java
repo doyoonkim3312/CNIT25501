@@ -3,17 +3,27 @@ package Lab_3;
 import java.util.UUID;
 
 public class User {
+    //private UserDB userDB;
     private String firstName;
     private String lastName;
     private String nickName;
     private String userPw;
-    final private UUID userUniqueId = generateUUID();
+    private UUID userUniqueId = generateUUID();
 
     public User(String firstName, String lastName, String nickName, String userPw) {
         setFirstName(firstName);
         setLastName(lastName);
         setNickName(nickName);
         setUserPw(userPw);
+        //this.userDB = userDB;
+    }
+
+    public User(User targetUser) {
+        setFirstName(targetUser.getFirstName());
+        setLastName(targetUser.getLastName());
+        setNickName(targetUser.getNickName());
+        setUserPw(targetUser.getUserPw());
+        setUserUniqueId(targetUser.getUserUniqueId());
     }
 
     public String getFirstName() {
@@ -50,6 +60,10 @@ public class User {
 
     public void setUserPw(String userPw) {
         this.userPw = userPw;
+    }
+
+    private void setUserUniqueId(UUID uuid) {
+        this.userUniqueId = uuid;
     }
 
     public String inputStringValidator(String inputString) {
