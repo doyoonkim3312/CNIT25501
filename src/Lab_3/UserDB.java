@@ -31,6 +31,16 @@ public class UserDB {
         }
     }
 
+    public User findUser(String nickName) {
+        User targetClient = new Client();
+        for (int i = 0; i < UserList.size(); i++) {
+            if (UserList.get(i).getNickName().equals(nickName)) {
+                targetClient = new User(UserList.get(i));
+            }
+        }
+        return targetClient;
+    }
+
     public boolean nickNameValidation(String nickName) {
         boolean validataion = false;
         for (int i = 0; i < UserList.size(); i++) {
