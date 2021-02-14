@@ -7,7 +7,7 @@ public class MessageLog extends Chatroom implements Chatting{
     final private UUID messageLogId = generateLogId();
     private ArrayList<Message> messages = new ArrayList<Message>();
 
-    public MessageLog(Client user1, Client user2) {
+    public MessageLog(User user1, User user2) {
         super(user1, user2);
     }
 

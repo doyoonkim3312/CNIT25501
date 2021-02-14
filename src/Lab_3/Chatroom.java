@@ -6,10 +6,10 @@ import java.util.UUID;
 
 public class Chatroom {
     final private UUID chatroomId = setChatroomId();
-    private ArrayList<Client> users = new ArrayList<Client>();
+    private ArrayList<User> users = new ArrayList<User>();
     private String chatroomName = "";
 
-    public Chatroom(Client user1, Client user2) {
+    public Chatroom(User user1, User user2) {
         users.add(user1);
         users.add(user2);
         setChatroomId();
@@ -23,7 +23,7 @@ public class Chatroom {
         this.chatroomName = chatroomName;
     }
 
-    public ArrayList<Client> getUserList() {
+    public ArrayList<User> getUserList() {
         return users;
     }
 
