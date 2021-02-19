@@ -4,4 +4,6 @@ public interface Chatting {
     void sendMessage(Message message);
 
     Message receiveMessage(MessageLog messageLog);
+
+    // void removeMessage(MessageLog messageLog, Message targetMessage);
 }

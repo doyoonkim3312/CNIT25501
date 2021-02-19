@@ -18,7 +18,7 @@ public class StringFunLab {
 
         System.out.println("Enter the command to play with String");
         inputArray = usrInput.nextLine().split(" ");
-        System.out.println(inputArray[0].toUpperCase());
+        // System.out.println(inputArray[0].toUpperCase());
 
         while (true) {
             switch (methodTypeHandle(inputArray[0])) {
@@ -73,14 +73,17 @@ public class StringFunLab {
                 case ENTHERNEWSTRING: {
                     String newString = "";
                     for (int i = 1; i < inputArray.length; i++) {
-                        newString += inputArray[i];
-                        enterNewString(newString);
+                        if (i < inputArray.length) {
+                            // Add blanks if there are more than two letters in new string set.
+                            newString += inputArray[i] + " ";
+                        }
                     }
+                    enterNewString(newString);
                     break;
                 }
                 case QUIT: {
                     usrInput.close();
-                    System.exit(000);
+                    quit();
                 }
                 default: {
                     System.out.println("INVALID ARGUMENT DETECTED; ENTER NEW COMMAND");
@@ -130,11 +133,12 @@ public class StringFunLab {
         return result;
     }
 
+    // need to check
     public static String addText(int position, String inputCharSet) {
         String result = "";
 
         for(int i = 0; i < targetString.length(); i++) {
-            if (position == i + 1) {
+            if (position == i) {
                 result += inputCharSet + targetString.charAt(i);
             } else {
                 result += targetString.charAt(i);
