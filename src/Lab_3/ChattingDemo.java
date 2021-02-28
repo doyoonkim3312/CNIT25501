@@ -64,6 +64,10 @@ public class ChattingDemo {
 
         System.out.println("Enter the Nick Name");
         String nickName = inputModel.nextLine();
+        while(userDB.nickNameValidation(nickName)) {
+            System.out.println("Nickname is already used. Enter new nickname");
+            nickName = inputModel.nextLine();
+        }
 
         System.out.println("Enter the password");
         String passwd = inputModel.nextLine();
