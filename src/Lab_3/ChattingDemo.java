@@ -1,5 +1,6 @@
 package Lab_3;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChattingDemo {
@@ -7,18 +8,29 @@ public class ChattingDemo {
     static UserDB userDB = new UserDB();
 
     public static void main(String[] args) {
-        System.out.println("Create User please");
-        Client testClient = createNewClient(); //USER 1
-        userDB.addItems(testClient);
         Client TA = new Client("255", "TA", "255 TA", "datadata", UserType.CLIENT); // USER2
         userDB.addItems(TA);
         Client junkUser = new Client("John", "Doe", "jDoe", "metadata", UserType.CLIENT); // Dummy User.
         userDB.addItems(junkUser);
+
+        /*
+        ArrayList<Client> test1 = userDB.returnUser();
+        for (int i = 0; i < test1.size(); i++) {
+            System.out.println(test1.get(i).getNickName());
+        }
+         */
+
+        System.out.println("Create User please");
+        Client testClient = createNewClient(); //USER 1
+        userDB.addItems(testClient);
+
+
+
         SenderRotation currentSender = SenderRotation.USER1;
 
         System.out.println("Enter the user nickname you want to talk");
         String targetNickname = inputModel.nextLine();
-        User targetUser = returnTargetClient(targetNickname);
+        Client targetUser = returnTargetClient(targetNickname);
 
         MessageLog messageLog = new MessageLog(testClient, targetUser);
         System.out.println("LOG IN: " + testClient.getNickName());
@@ -33,12 +45,12 @@ public class ChattingDemo {
             } else {
                 switch(currentSender) {
                     case USER1: {
-                        messageLog.sendMessage(new Message(testClient, TA, usrInput));
+                        messageLog.sendMessage(new Message(testClient, targetUser, usrInput));
                         currentSender = SenderRotation.USER2;
                         break;
                     }
                     case USER2: {
-                        messageLog.sendMessage(new Message(TA, testClient, usrInput));
+                        messageLog.sendMessage(new Message(targetUser, testClient, usrInput));
                         currentSender = SenderRotation.USER1;
                         break;
                     }
@@ -64,6 +76,7 @@ public class ChattingDemo {
 
         System.out.println("Enter the Nick Name");
         String nickName = inputModel.nextLine();
+        System.out.println(userDB.nickNameValidation(nickName));
         while(userDB.nickNameValidation(nickName)) {
             System.out.println("Nickname is already used. Enter new nickname");
             nickName = inputModel.nextLine();
@@ -76,7 +89,15 @@ public class ChattingDemo {
     }
 
     // This is a method for testing
-    public static User returnTargetClient(String nickName) {
+    public static Client returnTargetClient(String nickName) {
+        while (true) {
+            if(userDB.findUser(nickName).getNickName().equals("guest")) {
+                System.out.println("No User Found; Please enter valid nickname");
+                nickName = inputModel.nextLine();
+            } else {
+                break;
+            }
+        }
         return userDB.findUser(nickName);
     }
 
