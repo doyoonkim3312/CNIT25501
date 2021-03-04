@@ -18,9 +18,12 @@ public class Client  extends User {
     }
 
     // Prevent Deep copy
-    /*
-    public Client(Client targetClient) { }
-     */
+
+    public Client(Client targetClient) {
+        super(targetClient.getFirstName(), targetClient.getLastName(), targetClient.getNickName(), targetClient.getUserPw());
+        this.userType = targetClient.getUserType();
+    }
+
 
     public void setUserType(UserType userType) {
         this.userType = userType;
