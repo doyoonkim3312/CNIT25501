@@ -11,21 +11,36 @@ public class MessageLog extends Chatroom implements Chatting{
         super(user1, user2);
     }
 
-    public void printHistory(Client client) {
-        if (clientValidation(client)) {
-            System.out.println("CHAT HISTORY between " + getUserNickNameInChatroom());
+    public void printHistory(String senderNickname, String receiverNickName) {
+        if (clientValidation(senderNickname) && clientValidation(receiverNickName)) {
+            // System.out.println("CHAT HISTORY between " + getUserNickNameInChatroom());
             for (int i = 0; i < messages.size(); i++) {
                 if (messages.get(i) == null) {
                     continue;
                 } else {
-                    System.out.println("At ("+ messages.get(i).getStringFormatDate() + "), " + messages.get(i).getSenderNickName() + " said: "
-                            + messages.get(i).getMessage());
+                    if (messages.get(i).getSenderNickName().equals(senderNickname) &&
+                            messages.get(i).getReceiverNickName().equals(receiverNickName)) {
+                        System.out.println("At ("+ messages.get(i).getStringFormatDate() + "), " + messages.get(i).getSenderNickName() + " said: "
+                                + messages.get(i).getMessage());
+                    } else {
+                        continue;
+                    }
                 }
             }
         } else {
             System.out.println("Access Denied.");
         }
+    }
 
+    public void printHistory() {
+        for (int i = 0; i < messages.size(); i++) {
+            if (messages.get(i) == null) {
+                continue;
+            } else {
+                System.out.println("At ("+ messages.get(i).getStringFormatDate() + "), " + messages.get(i).getSenderNickName() + " said: "
+                        + messages.get(i).getMessage());
+            }
+        }
     }
 
     public boolean clientValidation(Client client) {
@@ -48,6 +63,16 @@ public class MessageLog extends Chatroom implements Chatting{
                 break;
             }
         }
+        return accessValidation;
+    }
+
+    public boolean clientValidation(String nickname) {
+        boolean accessValidation = false;
+                for (User element: super.getUserList()) {
+                    if (element.getNickName().equals(nickname)) {
+                        accessValidation = true;
+                    }
+                }
         return accessValidation;
     }
 
