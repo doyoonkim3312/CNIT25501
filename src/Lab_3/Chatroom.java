@@ -15,6 +15,10 @@ public class Chatroom {
         setChatroomId();
     }
 
+    public void addUser(User newUser) {
+        users.add(newUser);
+    }
+
     private UUID setChatroomId() {
         return UUID.randomUUID();
     }
