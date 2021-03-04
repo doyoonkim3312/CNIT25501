@@ -3,17 +3,19 @@ package Lab_3;
 import java.util.ArrayList;
 
 public class UserDB {
-    private ArrayList<User> UserList = new ArrayList<>();
+    private ArrayList<Client> UserList = new ArrayList<Client>();
 
-    public void addItems(User user) {
-        User item = new User(user);
-        UserList.add(item);
+    public void addItems(Client user) {
+        //Client item = new Client(user);
+        UserList.add(user);
     }
 
+    /*
     public void addItems(Manager manager) {
         User item = new User(manager);
         UserList.add(item);
     }
+     */
 
     public void removeItems(Client client) {
         for (int i = 0; i < UserList.size(); i++) {
@@ -23,6 +25,7 @@ public class UserDB {
         }
     }
 
+    /*
     public void removeItems(Manager manager) {
         for (int i = 0; i < UserList.size(); i++) {
             if (manager.getUserUniqueId() == UserList.get(i).getUserUniqueId()) {
@@ -30,12 +33,13 @@ public class UserDB {
             }
         }
     }
+     */
 
-    public User findUser(String nickName) {
-        User targetClient = new Client();
+    public Client findUser(String nickName) {
+        Client targetClient = new Client();
         for (int i = 0; i < UserList.size(); i++) {
             if (UserList.get(i).getNickName().equals(nickName)) {
-                targetClient = new User(UserList.get(i));
+                targetClient = new Client(UserList.get(i));
             }
         }
         return targetClient;
@@ -45,7 +49,9 @@ public class UserDB {
         boolean validataion = false;
         for (int i = 0; i < UserList.size(); i++) {
             if (UserList.get(i).getNickName().equals(nickName)) {
+                System.out.println(UserList.get(i).getNickName());
                 validataion = true;
+                break;
             } else {
                 continue;
             }
