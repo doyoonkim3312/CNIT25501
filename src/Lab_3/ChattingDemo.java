@@ -25,8 +25,9 @@ public class ChattingDemo {
         userDB.addItems(testClient);
 
 
-
+        /*
         SenderRotation currentSender = SenderRotation.USER1;
+
 
         System.out.println("Enter the user nickname you want to talk");
         String targetNickname = inputModel.nextLine();
@@ -36,9 +37,57 @@ public class ChattingDemo {
         System.out.println("LOG IN: " + testClient.getNickName());
         System.out.println("Start Message Typing message or print chat history Typing /exit");
         String usrInput = inputModel.nextLine();
+         */
+        System.out.println("Enter the sender nickname");
+        Client sender = returnTargetClient(inputModel.nextLine());
 
+        System.out.println("Enter the receiver nickname");
+        Client receiver = returnTargetClient(inputModel.nextLine());
 
+        MessageLog messageLog = new MessageLog(sender, receiver);
+        String usrInput;
 
+        while (true) {
+            System.out.println("LOG IN: " + sender.getNickName());
+            System.out.println("Start Message Typing message or print chat history Typing /exit\nOr Type /history to get history");
+            usrInput = inputModel.nextLine();
+            if (usrInput.equals("/exit")) {
+                break;
+            } else if (usrInput.equals("/history")) {
+                System.out.println("Please enter the sender and receiver with spacing. If you want to print all");
+                String[] option = inputModel.nextLine().split(" ");
+
+                try {
+                    messageLog.printHistory((option[0]), option[1]);
+                } catch (Exception e) {
+                    messageLog.printHistory();
+                }
+
+            } else {
+                messageLog.sendMessage(new Message(sender, receiver, usrInput));
+            }
+
+            System.out.println("Type any key to continue, or type /exit");
+            String checkPoint = inputModel.nextLine();
+            if (checkPoint.equals("/exit")) {
+                break;
+            } else {
+                System.out.println("Enter the sender nickname");
+                sender = returnTargetClient(inputModel.nextLine());
+                if (!messageLog.clientValidation(sender)) {
+                    messageLog.addUser(sender);
+                }
+
+                System.out.println("Enter receiver nickname");
+                receiver = returnTargetClient(inputModel.nextLine());
+                if (!messageLog.clientValidation(receiver)) {
+                    messageLog.addUser(receiver);
+                }
+            }
+
+        }
+
+        /*
         while (true) {
             if (usrInput.equals("/exit")) {
                 break;
@@ -60,10 +109,11 @@ public class ChattingDemo {
             System.out.println("Enter Message Typing message or print chat history /exit");
             usrInput = inputModel.nextLine();
         }
+         */
         inputModel.close();
 
-        messageLog.printHistory(junkUser);  // This line should deny access for unauthorized access.
-        messageLog.printHistory(testClient);
+        //messageLog.printHistory(junkUser);  // This line should deny access for unauthorized access.
+        //messageLog.printHistory(testClient);
     }
 
 
