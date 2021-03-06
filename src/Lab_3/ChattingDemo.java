@@ -1,6 +1,6 @@
 package Lab_3;
 
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class ChattingDemo {
@@ -25,19 +25,6 @@ public class ChattingDemo {
         userDB.addItems(testClient);
 
 
-        /*
-        SenderRotation currentSender = SenderRotation.USER1;
-
-
-        System.out.println("Enter the user nickname you want to talk");
-        String targetNickname = inputModel.nextLine();
-        Client targetUser = returnTargetClient(targetNickname);
-
-        MessageLog messageLog = new MessageLog(testClient, targetUser);
-        System.out.println("LOG IN: " + testClient.getNickName());
-        System.out.println("Start Message Typing message or print chat history Typing /exit");
-        String usrInput = inputModel.nextLine();
-         */
         System.out.println("Enter the sender nickname");
         Client sender = returnTargetClient(inputModel.nextLine());
 
@@ -87,33 +74,8 @@ public class ChattingDemo {
 
         }
 
-        /*
-        while (true) {
-            if (usrInput.equals("/exit")) {
-                break;
-            } else {
-                switch(currentSender) {
-                    case USER1: {
-                        messageLog.sendMessage(new Message(testClient, targetUser, usrInput));
-                        currentSender = SenderRotation.USER2;
-                        break;
-                    }
-                    case USER2: {
-                        messageLog.sendMessage(new Message(targetUser, testClient, usrInput));
-                        currentSender = SenderRotation.USER1;
-                        break;
-                    }
-                }
-            }
-            System.out.println("CURRENT USER: " + currentSender.name());
-            System.out.println("Enter Message Typing message or print chat history /exit");
-            usrInput = inputModel.nextLine();
-        }
-         */
         inputModel.close();
 
-        //messageLog.printHistory(junkUser);  // This line should deny access for unauthorized access.
-        //messageLog.printHistory(testClient);
     }
 
 
