@@ -1,6 +1,7 @@
 package Lab_3;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UserDB {
     private ArrayList<Client> UserList = new ArrayList<Client>();
@@ -45,6 +46,21 @@ public class UserDB {
         return targetClient;
     }
 
+    // Overloaded
+    public Client findUser(String nickName, Scanner inputModel) {
+        while (true) {
+            for (Client client: UserList) {
+                if (client.getNickName().equals(nickName)) {
+                    return client;
+                } else {
+                    continue;
+                }
+            }
+            System.out.println("No User Found. Please enter valid nickname");
+            nickName = inputModel.nextLine();
+        }
+    }
+
     public boolean nickNameValidation(String nickName) {
         boolean validataion = false;
         for (int i = 0; i < UserList.size(); i++) {
@@ -58,5 +74,6 @@ public class UserDB {
         }
         return validataion;
     }
+
 
 }
