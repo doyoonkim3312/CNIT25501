@@ -1,6 +1,6 @@
 package Lab_3;
 
-enum UserType {CLIENT, MANAGER, GUEST};
+enum UserType {CLIENT, MANAGER, GUEST, NULL};
 
 /**
  * Value for sender validation.
