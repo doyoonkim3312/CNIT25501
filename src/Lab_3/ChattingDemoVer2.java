@@ -20,7 +20,7 @@ public class ChattingDemoVer2 {
          */
 
         System.out.println("Create User please");
-        Client testClient = createNewClient(); //USER 1
+        Client testClient = Client.createNewClient(inputModel, userDB);
         userDB.addItems(testClient);
 
 
@@ -30,7 +30,8 @@ public class ChattingDemoVer2 {
 
         System.out.println("Enter the user nickname you want to talk");
         String targetNickname = inputModel.nextLine();
-        Client targetUser = returnTargetClient(targetNickname);
+        // Client targetUser = returnTargetClient(targetNickname);
+        Client targetUser = userDB.findUser(targetNickname, inputModel);
 
         MessageLog messageLog = new MessageLog(testClient, targetUser);
         System.out.println("LOG IN: " + testClient.getNickName());
@@ -67,38 +68,4 @@ public class ChattingDemoVer2 {
         messageLog.printHistory();  // Need to add access controlling.
     }
 
-
-    public static Client createNewClient() {
-        System.out.println("Enter the First Name");
-        String firstName = inputModel.nextLine();
-
-        System.out.println("Enter the Last Name");
-        String lastName = inputModel.nextLine();
-
-        System.out.println("Enter the Nick Name");
-        String nickName = inputModel.nextLine();
-        System.out.println(userDB.nickNameValidation(nickName));
-        while(userDB.nickNameValidation(nickName)) {
-            System.out.println("Nickname is already used. Enter new nickname");
-            nickName = inputModel.nextLine();
-        }
-
-        System.out.println("Enter the password");
-        String passwd = inputModel.nextLine();
-
-        return new Client(firstName, lastName, nickName, passwd, UserType.CLIENT);
-    }
-
-    // This is a method for testing
-    public static Client returnTargetClient(String nickName) {
-        while (true) {
-            if(userDB.findUser(nickName).getNickName().equals("guest")) {
-                System.out.println("No User Found; Please enter valid nickname");
-                nickName = inputModel.nextLine();
-            } else {
-                break;
-            }
-        }
-        return userDB.findUser(nickName);
-    }
 }

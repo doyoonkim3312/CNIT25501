@@ -13,23 +13,16 @@ public class ChattingDemo {
         Client junkUser = new Client("John", "Doe", "jDoe", "metadata", UserType.CLIENT); // Dummy User.
         userDB.addItems(junkUser);
 
-        /*
-        ArrayList<Client> test1 = userDB.returnUser();
-        for (int i = 0; i < test1.size(); i++) {
-            System.out.println(test1.get(i).getNickName());
-        }
-         */
-
         System.out.println("Create User please");
-        Client testClient = createNewClient(); //USER 1
+        Client testClient = Client.createNewClient(inputModel, userDB); //USER 1
         userDB.addItems(testClient);
 
 
         System.out.println("Enter the sender nickname");
-        Client sender = returnTargetClient(inputModel.nextLine());
+        Client sender = userDB.findUser(inputModel.nextLine(), inputModel);
 
         System.out.println("Enter the receiver nickname");
-        Client receiver = returnTargetClient(inputModel.nextLine());
+        Client receiver = userDB.findUser(inputModel.nextLine(), inputModel);
 
         MessageLog messageLog = new MessageLog(sender, receiver);
         String usrInput;
@@ -60,13 +53,13 @@ public class ChattingDemo {
                 break;
             } else {
                 System.out.println("Enter the sender nickname");
-                sender = returnTargetClient(inputModel.nextLine());
+                sender = userDB.findUser(inputModel.nextLine(), inputModel);
                 if (!messageLog.clientValidation(sender)) {
                     messageLog.addUser(sender);
                 }
 
                 System.out.println("Enter receiver nickname");
-                receiver = returnTargetClient(inputModel.nextLine());
+                receiver = userDB.findUser(inputModel.nextLine(), inputModel);
                 if (!messageLog.clientValidation(receiver)) {
                     messageLog.addUser(receiver);
                 }
@@ -77,40 +70,4 @@ public class ChattingDemo {
         inputModel.close();
 
     }
-
-
-    public static Client createNewClient() {
-        System.out.println("Enter the First Name");
-        String firstName = inputModel.nextLine();
-
-        System.out.println("Enter the Last Name");
-        String lastName = inputModel.nextLine();
-
-        System.out.println("Enter the Nick Name");
-        String nickName = inputModel.nextLine();
-        System.out.println(userDB.nickNameValidation(nickName));
-        while(userDB.nickNameValidation(nickName)) {
-            System.out.println("Nickname is already used. Enter new nickname");
-            nickName = inputModel.nextLine();
-        }
-
-        System.out.println("Enter the password");
-        String passwd = inputModel.nextLine();
-
-        return new Client(firstName, lastName, nickName, passwd, UserType.CLIENT);
-    }
-
-    // This is a method for testing
-    public static Client returnTargetClient(String nickName) {
-        while (true) {
-            if(userDB.findUser(nickName).getNickName().equals("guest")) {
-                System.out.println("No User Found; Please enter valid nickname");
-                nickName = inputModel.nextLine();
-            } else {
-                break;
-            }
-        }
-        return userDB.findUser(nickName);
-    }
-
 }
