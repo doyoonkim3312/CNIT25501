@@ -34,10 +34,15 @@ class CalculatorFrame extends JFrame {
         mainLabel.setHorizontalAlignment(JLabel.CENTER);
         mainLabel.setBackground(Color.white);
 
-
+        LinearLayoutPanel topLineOperators = new LinearLayoutPanel(Orient.HORIZONTAL);
         LinearLayoutPanel numbers1 = new LinearLayoutPanel(Orient.HORIZONTAL);
         LinearLayoutPanel numbers2 = new LinearLayoutPanel(Orient.HORIZONTAL);
         LinearLayoutPanel numbers3 = new LinearLayoutPanel(Orient.HORIZONTAL);
+
+        JButton clear = operatorBtnFactory("AC", Operator.CLEAR);
+        JButton sign = operatorBtnFactory("+/-", Operator.SIGN);
+        JButton percentage = operatorBtnFactory("%", Operator.PERCENTAGE);
+        JButton divide = operatorBtnFactory("/", Operator.DIVIDE);
 
         JButton number1 = numberBtnFactory("1");
         JButton number2 = numberBtnFactory("2");
@@ -79,6 +84,25 @@ class CalculatorFrame extends JFrame {
             }
         });
         return  btn;
+    }
+
+    public JButton operatorBtnFactory(String text, Operator operator) {
+        JButton btn = new JButton(text);
+        btn.setPreferredSize(new Dimension(70,70));
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switch (operator) {
+                    case PLUS:{}
+                    case MINUS: {}
+                    case MULTIPLY: {}
+                    case DIVIDE: {
+                        mainLabel.setText("DIVIDD");
+                    }
+                }
+            }
+        });
+        return btn;
     }
 }
 
