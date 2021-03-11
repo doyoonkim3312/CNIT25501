@@ -64,7 +64,6 @@ public class ChattingDemo {
                     messageLog.addUser(receiver);
                 }
             }
-
         }
 
         inputModel.close();

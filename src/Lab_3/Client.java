@@ -44,7 +44,6 @@ public class Client  extends User {
 
         System.out.println("Enter the Nick Name");
         String nickName = inputModel.nextLine();
-        System.out.println(userDB.nickNameValidation(nickName));
         while(userDB.nickNameValidation(nickName)) {
             System.out.println("Nickname is already used. Enter new nickname");
             nickName = inputModel.nextLine();
