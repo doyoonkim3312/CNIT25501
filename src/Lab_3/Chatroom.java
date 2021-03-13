@@ -1,5 +1,9 @@
 package Lab_3;
 
+/**
+ * @author Doyoon Kim (kim3312@purdue.edu)
+ */
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.UUID;

@@ -1,5 +1,9 @@
 package Lab_3;
 
+/**
+ * @author Doyoon Kim (kim3312@purdue.edu)
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,12 +15,6 @@ public class UserDB {
         UserList.add(user);
     }
 
-    /*
-    public void addItems(Manager manager) {
-        User item = new User(manager);
-        UserList.add(item);
-    }
-     */
 
     public void removeItems(Client client) {
         for (int i = 0; i < UserList.size(); i++) {
@@ -26,15 +24,6 @@ public class UserDB {
         }
     }
 
-    /*
-    public void removeItems(Manager manager) {
-        for (int i = 0; i < UserList.size(); i++) {
-            if (manager.getUserUniqueId() == UserList.get(i).getUserUniqueId()) {
-                UserList.remove(i);
-            }
-        }
-    }
-     */
 
     public Client findUser(String nickName) {
         Client targetClient = new Client();

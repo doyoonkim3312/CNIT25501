@@ -1,5 +1,9 @@
 package Lab_3;
 
+/**
+ * @author Doyoon Kim (kim3312@purdue.edu)
+ */
+
 import java.util.Date;
 import java.util.UUID;
 
