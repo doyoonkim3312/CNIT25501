@@ -1,5 +1,6 @@
 package Lab_4;
 
+import javax.sound.sampled.Line;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,6 +25,7 @@ class CalculatorFrame extends JFrame {
     private JLabel mainLabel = new JLabel();
 
     private Calculation mainCalculator = new Calculation(mainLabel);
+    private boolean isOperatorClicked = false;
 
     public CalculatorFrame() {
         super("Simple Calculator");
@@ -38,33 +40,40 @@ class CalculatorFrame extends JFrame {
         LinearLayoutPanel numbers1 = new LinearLayoutPanel(Orient.HORIZONTAL);
         LinearLayoutPanel numbers2 = new LinearLayoutPanel(Orient.HORIZONTAL);
         LinearLayoutPanel numbers3 = new LinearLayoutPanel(Orient.HORIZONTAL);
+        LinearLayoutPanel bottomLineOperators = new LinearLayoutPanel(Orient.HORIZONTAL);
 
-        JButton clear = operatorBtnFactory("AC", Operator.CLEAR);
+        JButton clear = operatorBtnFactory("C", Operator.CLEAR);
         JButton sign = operatorBtnFactory("+/-", Operator.SIGN);
         JButton percentage = operatorBtnFactory("%", Operator.PERCENTAGE);
         JButton divide = operatorBtnFactory("/", Operator.DIVIDE);
+        topLineOperators.add(clear, sign, percentage, divide);
+
+        JButton number0 = operatorBtnFactory("0",Operator.ZERO);
+        JButton decimal = operatorBtnFactory(".", Operator.DECIMAL);
+        JButton equal = operatorBtnFactory("=", Operator.EQUAL);
+        bottomLineOperators.add(number0, decimal, equal);
 
         JButton number1 = numberBtnFactory("1");
         JButton number2 = numberBtnFactory("2");
         JButton number3 = numberBtnFactory("3");
-        numbers3.add(number1, number2, number3);
+        JButton plus = operatorBtnFactory("+", Operator.PLUS);
+        numbers3.add(number1, number2, number3, plus);
 
         JButton number4 = numberBtnFactory("4");
         JButton number5 = numberBtnFactory("5");
         JButton number6 = numberBtnFactory("6");
-        numbers2.add(number4, number5, number6);
+        JButton minus = operatorBtnFactory("-", Operator.MINUS);
+        numbers2.add(number4, number5, number6, minus);
 
         JButton number7 = numberBtnFactory("7");
         JButton number8 = numberBtnFactory("8");
         JButton number9 = numberBtnFactory("9");
-        numbers1.add(number7, number8, number9);
+        JButton multiply = operatorBtnFactory("*", Operator.MULTIPLY);
+        numbers1.add(number7, number8, number9, multiply);
 
 
-        mainPanel.add(mainLabel);
-        mainPanel.add(numbers1.inflate());
-        mainPanel.add(numbers2.inflate());
-        mainPanel.add(numbers3.inflate());
-
+        mainPanel.add(mainLabel, topLineOperators.inflate(), numbers1.inflate(), numbers2.inflate(),
+                numbers3.inflate(), bottomLineOperators.inflate());
 
 
         add(mainPanel.inflate());
@@ -80,7 +89,12 @@ class CalculatorFrame extends JFrame {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainLabel.setText(mainLabel.getText() + ((JButton) e.getSource()).getText());
+                if (!isOperatorClicked) {
+                    mainLabel.setText(mainLabel.getText() + text);
+                } else {
+                    mainLabel.setText(text);
+                    isOperatorClicked = false;
+                }
             }
         });
         return  btn;
@@ -93,11 +107,36 @@ class CalculatorFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 switch (operator) {
-                    case PLUS:{}
-                    case MINUS: {}
-                    case MULTIPLY: {}
-                    case DIVIDE: {
-                        mainLabel.setText("DIVIDD");
+                    case PLUS -> {
+                        isOperatorClicked = true;
+                        mainCalculator.addition();
+                    }
+                    case MINUS -> {
+                        isOperatorClicked = true;
+                        mainCalculator.minus();
+                    }
+                    case MULTIPLY -> {
+                        isOperatorClicked = true;
+                        mainCalculator.multiply();
+                    }
+                    case DIVIDE -> {
+                        isOperatorClicked = true;
+                        mainCalculator.divide();
+                    }
+                    case EQUAL -> {
+                        isOperatorClicked = true;
+                        mainCalculator.equal();
+                    }
+                    case CLEAR -> {
+                        isOperatorClicked = true;
+                        mainCalculator.clear();
+                    }
+                    case ZERO, DECIMAL -> {
+                        // This case handles number button 0 and decimal point button
+                        System.out.println("Null Option Called");
+                        if (!mainLabel.getText().equals("")) {
+                            mainLabel.setText(mainLabel.getText() + text);
+                        }
                     }
                 }
             }
