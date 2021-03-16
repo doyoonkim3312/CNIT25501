@@ -25,6 +25,7 @@ public class LinearLayoutPanel {
         for (JComponent component: components) {
             this.components.add(component);
             contrainsts.add(new GridBagConstraints());
+            notifyConstraints();
         }
     }
 
