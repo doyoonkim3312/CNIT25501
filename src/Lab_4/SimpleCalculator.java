@@ -36,11 +36,18 @@ class CalculatorFrame extends JFrame {
         mainLabel.setHorizontalAlignment(JLabel.CENTER);
         mainLabel.setBackground(Color.white);
 
+        LinearLayoutPanel higherOperators = new LinearLayoutPanel(Orient.HORIZONTAL);
         LinearLayoutPanel topLineOperators = new LinearLayoutPanel(Orient.HORIZONTAL);
         LinearLayoutPanel numbers1 = new LinearLayoutPanel(Orient.HORIZONTAL);
         LinearLayoutPanel numbers2 = new LinearLayoutPanel(Orient.HORIZONTAL);
         LinearLayoutPanel numbers3 = new LinearLayoutPanel(Orient.HORIZONTAL);
         LinearLayoutPanel bottomLineOperators = new LinearLayoutPanel(Orient.HORIZONTAL);
+
+        JButton sqrt = operatorBtnFactory("√", Operator.SQRT);
+        JButton pow = operatorBtnFactory("x²",Operator.POW);
+        JButton pi = operatorBtnFactory("π", Operator.PI);
+        JButton e = operatorBtnFactory("e", Operator.E);
+        higherOperators.add(sqrt, pow, pi, e);
 
         JButton clear = operatorBtnFactory("C", Operator.CLEAR);
         JButton sign = operatorBtnFactory("+/-", Operator.SIGN);
@@ -72,7 +79,7 @@ class CalculatorFrame extends JFrame {
         numbers1.add(number7, number8, number9, multiply);
 
 
-        mainPanel.add(mainLabel, topLineOperators.inflate(), numbers1.inflate(), numbers2.inflate(),
+        mainPanel.add(mainLabel, higherOperators.inflate() ,topLineOperators.inflate(), numbers1.inflate(), numbers2.inflate(),
                 numbers3.inflate(), bottomLineOperators.inflate());
 
 
@@ -131,9 +138,29 @@ class CalculatorFrame extends JFrame {
                         isOperatorClicked = true;
                         mainCalculator.clear();
                     }
+                    case SIGN -> mainCalculator.sign();
+                    case PERCENTAGE -> {
+                        isOperatorClicked = true;
+                        mainCalculator.percentage();
+                    }
+                    case SQRT -> {
+                        isOperatorClicked = true;
+                        mainLabel.setText(Double.toString(mainCalculator.sqRoot()));
+                    }
+                    case POW -> {
+                        isOperatorClicked = true;
+                        mainCalculator.pow();
+                    }
+                    case PI -> {
+                        isOperatorClicked = true;
+                        mainCalculator.pi();
+                    }
+                    case E -> {
+                        isOperatorClicked = true;
+                        mainCalculator.e();
+                    }
                     case ZERO, DECIMAL -> {
                         // This case handles number button 0 and decimal point button
-                        System.out.println("Null Option Called");
                         if (!mainLabel.getText().equals("")) {
                             mainLabel.setText(mainLabel.getText() + text);
                         }
