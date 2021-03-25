@@ -1,44 +1,43 @@
 package Lab_4;
 
+// Controller
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.math.MathContext;
 
 public class Calculation {
     private JLabel mainLabel;
-    private Operator operatorClicked, operatorAssigned;
-    private double numberStored;
+    private Operator operatorClicked;
+    private CalculationData calculationData = new CalculationData();
 
     public Calculation(JLabel label) {
         mainLabel = label;
-        operatorAssigned = Operator.NULL;
         operatorClicked = Operator.NULL;
-        // assignedOperator = Operator.NULL;
-        numberStored = 0;
     }
 
-    public void addition() {
-        operatorClicked = Operator.PLUS;
+    public double addition() {
+        calculationData.setOperatorClicked(Operator.PLUS);
         basicCalculation(valueParser());
-        mainLabel.setText(Double.toString(numberStored));
+        return calculationData.getNumberStored();
     }
 
-    public void minus() {
-        operatorClicked = Operator.MINUS;
+    public double minus() {
+        calculationData.setOperatorClicked(Operator.MINUS);
         basicCalculation(valueParser());
-        mainLabel.setText(Double.toString(numberStored));
+        return calculationData.getNumberStored();
     }
 
-    public void multiply() {
-        operatorClicked = Operator.MULTIPLY;
+    public double multiply() {
+        calculationData.setOperatorClicked(Operator.MULTIPLY);
         basicCalculation(valueParser());
-        mainLabel.setText(Double.toString(numberStored));
+        return calculationData.getNumberStored();
     }
 
-    public void divide() {
-        operatorClicked = Operator.DIVIDE;
+    public double divide() {
+        calculationData.setOperatorClicked(Operator.DIVIDE);
         basicCalculation(valueParser());
-        mainLabel.setText(Double.toString(numberStored));
+        return calculationData.getNumberStored();
     }
 
     /**
@@ -65,51 +64,52 @@ public class Calculation {
         return Double.parseDouble(String.format("%.9f", termInSequence));
     }
 
-    public void pow() {
-        mainLabel.setText(Double.toString(StrictMath.pow(valueParser(), 2)));
+    public double pow() {
+        return StrictMath.pow(valueParser(), 2);
     }
 
-    public void pi() {
-        mainLabel.setText(Double.toString(StrictMath.PI));
+    public double pi() {
+        return StrictMath.PI;
     }
 
-    public void e() {
-        mainLabel.setText(Double.toString(StrictMath.E));
+    public double e() {
+        return StrictMath.E;
     }
 
-    public void equal() {
+    public double equal() {
         basicCalculation(valueParser());
-        mainLabel.setText(Double.toString(numberStored));
-        operatorAssigned = Operator.NULL;
+        calculationData.setOperationAssigned(Operator.NULL);
+        return calculationData.getNumberStored();
     }
 
-    public void percentage() {
-        mainLabel.setText(Double.toString(0.01 * valueParser()));
+    public double percentage() {
+        return 0.01 * valueParser();
     }
 
     public void sign() {
         mainLabel.setText(Double.toString(-1 * valueParser()));
     }
 
-    public void clear() {
+    public double clear() {
         if (mainLabel.getText().equals("0")) {
-            numberStored = 0;
+            calculationData.setNumberStored(0);
             operatorClicked = Operator.NULL;
-            operatorAssigned = Operator.NULL;
-        } else {
-            mainLabel.setText("0");
+            calculationData.setOperationAssigned(Operator.NULL);
         }
+        return 0.0;
     }
 
     public void basicCalculation(double input) {
-        switch (operatorAssigned) {
+        double numberStored = calculationData.getNumberStored();
+        switch (calculationData.getOperatorAssigned()) {
             case PLUS -> numberStored += input;
             case MINUS -> numberStored -= input;
             case DIVIDE -> numberStored /= input;
             case MULTIPLY -> numberStored *= input;
             default -> numberStored = input;
         }
-        operatorAssigned = operatorClicked;
+        calculationData.setNumberStored(numberStored);
+        calculationData.updateOperatorAssigned();
     }
 
     private double valueParser() {
