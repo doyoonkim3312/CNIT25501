@@ -1,5 +1,7 @@
 package Lab_4;
 
+// View
+
 import javax.sound.sampled.Line;
 import javax.swing.*;
 import java.awt.*;
@@ -116,32 +118,32 @@ class CalculatorFrame extends JFrame {
                 switch (operator) {
                     case PLUS -> {
                         isOperatorClicked = true;
-                        mainCalculator.addition();
+                        mainLabel.setText(Double.toString(mainCalculator.addition()));
                     }
                     case MINUS -> {
                         isOperatorClicked = true;
-                        mainCalculator.minus();
+                        mainLabel.setText(Double.toString(mainCalculator.minus()));
                     }
                     case MULTIPLY -> {
                         isOperatorClicked = true;
-                        mainCalculator.multiply();
+                        mainLabel.setText(Double.toString(mainCalculator.multiply()));
                     }
                     case DIVIDE -> {
                         isOperatorClicked = true;
-                        mainCalculator.divide();
+                        mainLabel.setText(Double.toString(mainCalculator.divide()));
                     }
                     case EQUAL -> {
                         isOperatorClicked = true;
-                        mainCalculator.equal();
+                        mainLabel.setText(Double.toString(mainCalculator.equal()));
                     }
                     case CLEAR -> {
                         isOperatorClicked = true;
-                        mainCalculator.clear();
+                        mainLabel.setText(Double.toString(mainCalculator.clear()));
                     }
                     case SIGN -> mainCalculator.sign();
                     case PERCENTAGE -> {
                         isOperatorClicked = true;
-                        mainCalculator.percentage();
+                        mainLabel.setText(Double.toString(mainCalculator.percentage()));
                     }
                     case SQRT -> {
                         isOperatorClicked = true;
@@ -149,15 +151,15 @@ class CalculatorFrame extends JFrame {
                     }
                     case POW -> {
                         isOperatorClicked = true;
-                        mainCalculator.pow();
+                        mainLabel.setText(Double.toString(mainCalculator.pow()));
                     }
                     case PI -> {
                         isOperatorClicked = true;
-                        mainCalculator.pi();
+                        mainLabel.setText(Double.toString(mainCalculator.pi()));
                     }
                     case E -> {
                         isOperatorClicked = true;
-                        mainCalculator.e();
+                        mainLabel.setText(Double.toString(mainCalculator.e()));
                     }
                     case ZERO, DECIMAL -> {
                         // This case handles number button 0 and decimal point button
