@@ -5,11 +5,14 @@ package Lab_4;
 public class CalculationData {
     private Operator OperatorAssigned, OperatorClicked;
     private double numberStored;
+    private boolean isNumberButtonClicked, isOperatorClicked;
 
     public CalculationData() {
         numberStored = 0.0;
         OperatorAssigned = Operator.NULL;
         OperatorClicked = Operator.NULL;
+        isNumberButtonClicked = false;
+        isOperatorClicked = false;
     }
 
     public double getNumberStored() {
@@ -22,6 +25,14 @@ public class CalculationData {
 
     public Operator getOperatorClicked() {
         return OperatorClicked;
+    }
+
+    public boolean getNumberButtonClickStatus() {
+        return isNumberButtonClicked;
+    }
+
+    public boolean getOperatorButtonClickStatus() {
+        return isOperatorClicked;
     }
 
     public void setOperatorClicked(Operator operatorClicked) {
@@ -38,6 +49,14 @@ public class CalculationData {
 
     public void setNumberStored(double numberStored) {
         this.numberStored = numberStored;
+    }
+
+    public void setNumberButtonClickStatus(boolean status) {
+        isNumberButtonClicked = status;
+    }
+
+    public void setOperatorButtonClickStatus(boolean status) {
+        isOperatorClicked = status;
     }
 
 
