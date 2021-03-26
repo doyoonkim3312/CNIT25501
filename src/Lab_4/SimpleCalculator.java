@@ -45,39 +45,39 @@ class CalculatorFrame extends JFrame {
         LinearLayoutPanel numbers3 = new LinearLayoutPanel(Orient.HORIZONTAL);
         LinearLayoutPanel bottomLineOperators = new LinearLayoutPanel(Orient.HORIZONTAL);
 
-        JButton sqrt = operatorBtnFactory("√", Operator.SQRT);
-        JButton pow = operatorBtnFactory("x²",Operator.POW);
-        JButton pi = operatorBtnFactory("π", Operator.PI);
-        JButton e = operatorBtnFactory("e", Operator.E);
+        JButton sqrt = mainCalculator.operatorBtnFactory("√", Operator.SQRT);
+        JButton pow = mainCalculator.operatorBtnFactory("x²",Operator.POW);
+        JButton pi = mainCalculator.operatorBtnFactory("π", Operator.PI);
+        JButton e = mainCalculator.operatorBtnFactory("e", Operator.E);
         higherOperators.add(sqrt, pow, pi, e);
 
-        JButton clear = operatorBtnFactory("C", Operator.CLEAR);
-        JButton sign = operatorBtnFactory("+/-", Operator.SIGN);
-        JButton percentage = operatorBtnFactory("%", Operator.PERCENTAGE);
-        JButton divide = operatorBtnFactory("/", Operator.DIVIDE);
+        JButton clear = mainCalculator.operatorBtnFactory("C", Operator.CLEAR);
+        JButton sign = mainCalculator.operatorBtnFactory("+/-", Operator.SIGN);
+        JButton percentage = mainCalculator.operatorBtnFactory("%", Operator.PERCENTAGE);
+        JButton divide = mainCalculator.operatorBtnFactory("/", Operator.DIVIDE);
         topLineOperators.add(clear, sign, percentage, divide);
 
-        JButton number0 = operatorBtnFactory("0",Operator.ZERO);
-        JButton decimal = operatorBtnFactory(".", Operator.DECIMAL);
-        JButton equal = operatorBtnFactory("=", Operator.EQUAL);
+        JButton number0 = mainCalculator.operatorBtnFactory("0",Operator.ZERO);
+        JButton decimal = mainCalculator.operatorBtnFactory(".", Operator.DECIMAL);
+        JButton equal = mainCalculator.operatorBtnFactory("=", Operator.EQUAL);
         bottomLineOperators.add(number0, decimal, equal);
 
-        JButton number1 = numberBtnFactory("1");
-        JButton number2 = numberBtnFactory("2");
-        JButton number3 = numberBtnFactory("3");
-        JButton plus = operatorBtnFactory("+", Operator.PLUS);
+        JButton number1 = mainCalculator.numberBtnFactory("1");
+        JButton number2 = mainCalculator.numberBtnFactory("2");
+        JButton number3 = mainCalculator.numberBtnFactory("3");
+        JButton plus = mainCalculator.operatorBtnFactory("+", Operator.PLUS);
         numbers3.add(number1, number2, number3, plus);
 
-        JButton number4 = numberBtnFactory("4");
-        JButton number5 = numberBtnFactory("5");
-        JButton number6 = numberBtnFactory("6");
-        JButton minus = operatorBtnFactory("-", Operator.MINUS);
+        JButton number4 = mainCalculator.numberBtnFactory("4");
+        JButton number5 = mainCalculator.numberBtnFactory("5");
+        JButton number6 = mainCalculator.numberBtnFactory("6");
+        JButton minus = mainCalculator.operatorBtnFactory("-", Operator.MINUS);
         numbers2.add(number4, number5, number6, minus);
 
-        JButton number7 = numberBtnFactory("7");
-        JButton number8 = numberBtnFactory("8");
-        JButton number9 = numberBtnFactory("9");
-        JButton multiply = operatorBtnFactory("*", Operator.MULTIPLY);
+        JButton number7 = mainCalculator.numberBtnFactory("7");
+        JButton number8 = mainCalculator.numberBtnFactory("8");
+        JButton number9 = mainCalculator.numberBtnFactory("9");
+        JButton multiply = mainCalculator.operatorBtnFactory("*", Operator.MULTIPLY);
         numbers1.add(number7, number8, number9, multiply);
 
 
@@ -92,6 +92,7 @@ class CalculatorFrame extends JFrame {
 
     }
 
+    /*
     public JButton numberBtnFactory(String text) {
         JButton btn = new JButton(text);
         btn.setPreferredSize(new Dimension(70,70));
@@ -108,60 +109,56 @@ class CalculatorFrame extends JFrame {
         });
         return  btn;
     }
+     */
 
+    /*
     public JButton operatorBtnFactory(String text, Operator operator) {
         JButton btn = new JButton(text);
         btn.setPreferredSize(new Dimension(70,70));
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                mainCalculator.updateButtonClickStatus(true, 1);
                 switch (operator) {
                     case PLUS -> {
-                        isOperatorClicked = true;
                         mainLabel.setText(Double.toString(mainCalculator.addition()));
                     }
                     case MINUS -> {
-                        isOperatorClicked = true;
                         mainLabel.setText(Double.toString(mainCalculator.minus()));
                     }
                     case MULTIPLY -> {
-                        isOperatorClicked = true;
                         mainLabel.setText(Double.toString(mainCalculator.multiply()));
                     }
                     case DIVIDE -> {
-                        isOperatorClicked = true;
                         mainLabel.setText(Double.toString(mainCalculator.divide()));
                     }
                     case EQUAL -> {
-                        isOperatorClicked = true;
                         mainLabel.setText(Double.toString(mainCalculator.equal()));
                     }
                     case CLEAR -> {
-                        isOperatorClicked = true;
                         mainLabel.setText(Double.toString(mainCalculator.clear()));
                     }
-                    case SIGN -> mainCalculator.sign();
+                    case SIGN -> {
+                        mainCalculator.updateButtonClickStatus(false, 1);
+                        mainCalculator.sign();
+                    }
                     case PERCENTAGE -> {
-                        isOperatorClicked = true;
                         mainLabel.setText(Double.toString(mainCalculator.percentage()));
                     }
                     case SQRT -> {
-                        isOperatorClicked = true;
                         mainLabel.setText(Double.toString(mainCalculator.sqRoot()));
                     }
                     case POW -> {
-                        isOperatorClicked = true;
                         mainLabel.setText(Double.toString(mainCalculator.pow()));
                     }
                     case PI -> {
-                        isOperatorClicked = true;
                         mainLabel.setText(Double.toString(mainCalculator.pi()));
                     }
                     case E -> {
-                        isOperatorClicked = true;
                         mainLabel.setText(Double.toString(mainCalculator.e()));
                     }
                     case ZERO, DECIMAL -> {
+                        mainCalculator.updateButtonClickStatus(false,1);
                         // This case handles number button 0 and decimal point button
                         if (!mainLabel.getText().equals("")) {
                             mainLabel.setText(mainLabel.getText() + text);
@@ -172,5 +169,6 @@ class CalculatorFrame extends JFrame {
         });
         return btn;
     }
+     */
 }
 
