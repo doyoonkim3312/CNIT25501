@@ -3,17 +3,17 @@ package Lab_4;
 // Controller
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.math.MathContext;
 
 public class Calculation {
     private JLabel mainLabel;
-    private Operator operatorClicked;
     private CalculationData calculationData = new CalculationData();
 
     public Calculation(JLabel label) {
         mainLabel = label;
-        operatorClicked = Operator.NULL;
     }
 
     public double addition() {
@@ -93,8 +93,11 @@ public class Calculation {
     public double clear() {
         if (mainLabel.getText().equals("0")) {
             calculationData.setNumberStored(0);
-            operatorClicked = Operator.NULL;
+            calculationData.setOperatorClicked(Operator.NULL);
             calculationData.setOperationAssigned(Operator.NULL);
+        } else {
+            calculationData.setOperatorClicked(Operator.NULL);
+            calculationData.setNumberButtonClickStatus(false);
         }
         return 0.0;
     }
@@ -118,6 +121,107 @@ public class Calculation {
         } else {
             return 0.0;
         }
+    }
+
+
+    /**
+     * This method update button click status in Model.
+     * @param status New Button click status
+     * @param buttonType 0 is assigned to number Button, 1 is assigned to OperatorButton
+     */
+    public void updateButtonClickStatus(boolean status, int buttonType) {
+        if (buttonType == 0) {
+            calculationData.setNumberButtonClickStatus(status);
+        } else {
+            calculationData.setOperatorButtonClickStatus(status);
+        }
+    }
+
+    // getter for button click status need to be created.
+    public boolean getNumberButtonStatus() {
+        return false;
+    }
+
+    public JButton numberBtnFactory(String text) {
+        JButton btn = new JButton(text);
+        btn.setPreferredSize(new Dimension(70,70));
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                calculationData.setNumberButtonClickStatus(true);
+                if (!calculationData.getOperatorButtonClickStatus()) {
+                    mainLabel.setText(mainLabel.getText() + text);
+                } else {
+                    mainLabel.setText(text);
+                    calculationData.setOperatorButtonClickStatus(false);
+                }
+            }
+        });
+        return  btn;
+    }
+
+    // This button method needs more modifications.
+    public JButton operatorBtnFactory(String text, Operator operator) {
+        JButton btn = new JButton(text);
+        btn.setPreferredSize(new Dimension(70,70));
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!calculationData.getNumberButtonClickStatus()) {
+                    calculationData.setOperatorClicked(Operator.NULL);
+                } else if(operator.name().equals("CLEAR")) {
+                        mainLabel.setText(Double.toString(clear()));
+                } else {
+                    updateButtonClickStatus(true, 1);
+                    switch (operator) {
+                        case PLUS -> {
+                            mainLabel.setText(Double.toString(addition()));
+                        }
+                        case MINUS -> {
+                            mainLabel.setText(Double.toString(minus()));
+                        }
+                        case MULTIPLY -> {
+                            mainLabel.setText(Double.toString(multiply()));
+                        }
+                        case DIVIDE -> {
+                            mainLabel.setText(Double.toString(divide()));
+                        }
+                        case EQUAL -> {
+                            mainLabel.setText(Double.toString(equal()));
+                        }
+                        case SIGN -> {
+                            updateButtonClickStatus(false, 1);
+                            sign();
+                        }
+                        case PERCENTAGE -> {
+                            mainLabel.setText(Double.toString(percentage()));
+                        }
+                        case SQRT -> {
+                            mainLabel.setText(Double.toString(sqRoot()));
+                        }
+                        case POW -> {
+                            mainLabel.setText(Double.toString(pow()));
+                        }
+                        case PI -> {
+                            mainLabel.setText(Double.toString(pi()));
+                        }
+                        case E -> {
+                            mainLabel.setText(Double.toString(e()));
+                        }
+                        case ZERO, DECIMAL -> {
+                            updateButtonClickStatus(false,1);
+                            // This case handles number button 0 and decimal point button
+                            if (!mainLabel.getText().equals("")) {
+                                mainLabel.setText(mainLabel.getText() + text);
+                            }
+                        }
+                    }
+                    calculationData.setNumberButtonClickStatus(false);
+                }
+
+            }
+        });
+        return btn;
     }
 
 }
