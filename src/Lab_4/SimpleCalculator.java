@@ -27,7 +27,6 @@ class CalculatorFrame extends JFrame {
     private JLabel mainLabel = new JLabel();
 
     private Calculation mainCalculator = new Calculation(mainLabel);
-    private boolean isOperatorClicked = false;
 
     public CalculatorFrame() {
         super("Simple Calculator");
@@ -91,84 +90,5 @@ class CalculatorFrame extends JFrame {
         setVisible(true);
 
     }
-
-    /*
-    public JButton numberBtnFactory(String text) {
-        JButton btn = new JButton(text);
-        btn.setPreferredSize(new Dimension(70,70));
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!isOperatorClicked) {
-                    mainLabel.setText(mainLabel.getText() + text);
-                } else {
-                    mainLabel.setText(text);
-                    isOperatorClicked = false;
-                }
-            }
-        });
-        return  btn;
-    }
-     */
-
-    /*
-    public JButton operatorBtnFactory(String text, Operator operator) {
-        JButton btn = new JButton(text);
-        btn.setPreferredSize(new Dimension(70,70));
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainCalculator.updateButtonClickStatus(true, 1);
-                switch (operator) {
-                    case PLUS -> {
-                        mainLabel.setText(Double.toString(mainCalculator.addition()));
-                    }
-                    case MINUS -> {
-                        mainLabel.setText(Double.toString(mainCalculator.minus()));
-                    }
-                    case MULTIPLY -> {
-                        mainLabel.setText(Double.toString(mainCalculator.multiply()));
-                    }
-                    case DIVIDE -> {
-                        mainLabel.setText(Double.toString(mainCalculator.divide()));
-                    }
-                    case EQUAL -> {
-                        mainLabel.setText(Double.toString(mainCalculator.equal()));
-                    }
-                    case CLEAR -> {
-                        mainLabel.setText(Double.toString(mainCalculator.clear()));
-                    }
-                    case SIGN -> {
-                        mainCalculator.updateButtonClickStatus(false, 1);
-                        mainCalculator.sign();
-                    }
-                    case PERCENTAGE -> {
-                        mainLabel.setText(Double.toString(mainCalculator.percentage()));
-                    }
-                    case SQRT -> {
-                        mainLabel.setText(Double.toString(mainCalculator.sqRoot()));
-                    }
-                    case POW -> {
-                        mainLabel.setText(Double.toString(mainCalculator.pow()));
-                    }
-                    case PI -> {
-                        mainLabel.setText(Double.toString(mainCalculator.pi()));
-                    }
-                    case E -> {
-                        mainLabel.setText(Double.toString(mainCalculator.e()));
-                    }
-                    case ZERO, DECIMAL -> {
-                        mainCalculator.updateButtonClickStatus(false,1);
-                        // This case handles number button 0 and decimal point button
-                        if (!mainLabel.getText().equals("")) {
-                            mainLabel.setText(mainLabel.getText() + text);
-                        }
-                    }
-                }
-            }
-        });
-        return btn;
-    }
-     */
 }
 
