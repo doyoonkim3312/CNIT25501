@@ -91,7 +91,7 @@ public class Calculation {
     }
 
     public double clear() {
-        if (mainLabel.getText().equals("0")) {
+        if (mainLabel.getText().equals("0.0")) {
             calculationData.setNumberStored(0);
             calculationData.setOperatorClicked(Operator.NULL);
             calculationData.setOperationAssigned(Operator.NULL);
@@ -104,6 +104,7 @@ public class Calculation {
 
     public void basicCalculation(double input) {
         double numberStored = calculationData.getNumberStored();
+        System.out.println("BSC: " + calculationData.getOperatorAssigned());
         switch (calculationData.getOperatorAssigned()) {
             case PLUS -> numberStored += input;
             case MINUS -> numberStored -= input;
@@ -138,9 +139,6 @@ public class Calculation {
     }
 
     // getter for button click status need to be created.
-    public boolean getNumberButtonStatus() {
-        return false;
-    }
 
     public JButton numberBtnFactory(String text) {
         JButton btn = new JButton(text);
@@ -167,10 +165,35 @@ public class Calculation {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println(operator.name());
+                System.out.println(calculationData.getNumberButtonClickStatus());
                 if (!calculationData.getNumberButtonClickStatus()) {
-                    calculationData.setOperatorClicked(Operator.NULL);
-                } else if(operator.name().equals("CLEAR")) {
-                        mainLabel.setText(Double.toString(clear()));
+                    switch (operator) {
+                        case ZERO, DECIMAL -> {
+                            updateButtonClickStatus(false,1);
+                            // This case handles number button 0 and decimal point button
+                            if (!mainLabel.getText().equals("")) {
+                                mainLabel.setText(mainLabel.getText() + text);
+                            }
+                        }
+                        case CLEAR -> {
+                            mainLabel.setText(Double.toString(clear()));
+                        }
+                        case SQRT -> {
+                            mainLabel.setText(Double.toString(sqRoot()));
+                        }
+                        case POW -> {
+                            mainLabel.setText(Double.toString(pow()));
+                        }
+                        case PI -> {
+                            mainLabel.setText(Double.toString(pi()));
+                        }
+                        case E -> {
+                            mainLabel.setText(Double.toString(e()));
+                        }
+                        default -> calculationData.setOperationAssigned(operator);
+                    }
+
                 } else {
                     updateButtonClickStatus(true, 1);
                     switch (operator) {
@@ -195,25 +218,6 @@ public class Calculation {
                         }
                         case PERCENTAGE -> {
                             mainLabel.setText(Double.toString(percentage()));
-                        }
-                        case SQRT -> {
-                            mainLabel.setText(Double.toString(sqRoot()));
-                        }
-                        case POW -> {
-                            mainLabel.setText(Double.toString(pow()));
-                        }
-                        case PI -> {
-                            mainLabel.setText(Double.toString(pi()));
-                        }
-                        case E -> {
-                            mainLabel.setText(Double.toString(e()));
-                        }
-                        case ZERO, DECIMAL -> {
-                            updateButtonClickStatus(false,1);
-                            // This case handles number button 0 and decimal point button
-                            if (!mainLabel.getText().equals("")) {
-                                mainLabel.setText(mainLabel.getText() + text);
-                            }
                         }
                     }
                     calculationData.setNumberButtonClickStatus(false);
