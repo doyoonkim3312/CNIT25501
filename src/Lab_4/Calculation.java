@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Method;
 import java.math.MathContext;
 
 public class Calculation {
@@ -165,67 +166,61 @@ public class Calculation {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(operator.name());
-                System.out.println(calculationData.getNumberButtonClickStatus());
-                if (!calculationData.getNumberButtonClickStatus()) {
-                    switch (operator) {
-                        case ZERO, DECIMAL -> {
-                            updateButtonClickStatus(false,1);
-                            // This case handles number button 0 and decimal point button
-                            if (!mainLabel.getText().equals("")) {
-                                mainLabel.setText(mainLabel.getText() + text);
-                            }
-                        }
-                        case CLEAR -> {
-                            mainLabel.setText(Double.toString(clear()));
-                        }
-                        case SQRT -> {
-                            mainLabel.setText(Double.toString(sqRoot()));
-                        }
-                        case POW -> {
-                            mainLabel.setText(Double.toString(pow()));
-                        }
-                        case PI -> {
-                            mainLabel.setText(Double.toString(pi()));
-                        }
-                        case E -> {
-                            mainLabel.setText(Double.toString(e()));
-                        }
-                        default -> calculationData.setOperationAssigned(operator);
+                updateButtonClickStatus(true, 1);
+                switch (operator) {
+                    case PLUS, MINUS, MULTIPLY, DIVIDE -> {
+                        operatorButtonHandler(operator);
                     }
-
-                } else {
-                    updateButtonClickStatus(true, 1);
-                    switch (operator) {
-                        case PLUS -> {
-                            mainLabel.setText(Double.toString(addition()));
-                        }
-                        case MINUS -> {
-                            mainLabel.setText(Double.toString(minus()));
-                        }
-                        case MULTIPLY -> {
-                            mainLabel.setText(Double.toString(multiply()));
-                        }
-                        case DIVIDE -> {
-                            mainLabel.setText(Double.toString(divide()));
-                        }
-                        case EQUAL -> {
-                            mainLabel.setText(Double.toString(equal()));
-                        }
-                        case SIGN -> {
-                            updateButtonClickStatus(false, 1);
-                            sign();
-                        }
-                        case PERCENTAGE -> {
-                            mainLabel.setText(Double.toString(percentage()));
+                    case EQUAL -> {
+                        mainLabel.setText(Double.toString(equal()));
+                    }
+                    case SIGN -> {
+                        updateButtonClickStatus(false, 1);
+                        sign();
+                    }
+                    case PERCENTAGE -> {
+                        mainLabel.setText(Double.toString(percentage()));
+                    }
+                    case ZERO, DECIMAL -> {
+                        updateButtonClickStatus(false,1);
+                        // This case handles number button 0 and decimal point button
+                        if (!mainLabel.getText().equals("")) {
+                            mainLabel.setText(mainLabel.getText() + text);
                         }
                     }
-                    calculationData.setNumberButtonClickStatus(false);
+                    case CLEAR -> {
+                        mainLabel.setText(Double.toString(clear()));
+                    }
+                    case SQRT -> {
+                        mainLabel.setText(Double.toString(sqRoot()));
+                    }
+                    case POW -> {
+                        mainLabel.setText(Double.toString(pow()));
+                    }
+                    case PI -> {
+                        mainLabel.setText(Double.toString(pi()));
+                    }
+                    case E -> {
+                        mainLabel.setText(Double.toString(e()));
+                    }
                 }
-
+                calculationData.setNumberButtonClickStatus(false);
             }
         });
         return btn;
+    }
+
+    public void operatorButtonHandler(Operator operator) {
+        if (!calculationData.getNumberButtonClickStatus()) {
+            calculationData.setOperationAssigned(operator);
+        } else {
+            switch (operator) {
+                case PLUS -> mainLabel.setText(Double.toString(addition()));
+                case MINUS -> mainLabel.setText(Double.toString(minus()));
+                case MULTIPLY -> mainLabel.setText(Double.toString(multiply()));
+                case DIVIDE -> mainLabel.setText(Double.toString(divide()));
+            }
+        }
     }
 
 }
