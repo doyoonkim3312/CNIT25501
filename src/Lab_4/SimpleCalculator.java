@@ -2,12 +2,8 @@ package Lab_4;
 
 // View
 
-import javax.sound.sampled.Line;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.EventHandler;
 
 public class SimpleCalculator {
     public static void main(String[] args) {
@@ -15,7 +11,6 @@ public class SimpleCalculator {
             @Override
             public void run() {
                 CalculatorFrame test = new CalculatorFrame();
-                // test.setVisible(true);
             }
         });
     }
@@ -88,7 +83,6 @@ class CalculatorFrame extends JFrame {
         pack();
         //setResizable(false);
         setVisible(true);
-
     }
 }
 

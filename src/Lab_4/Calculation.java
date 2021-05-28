@@ -105,7 +105,6 @@ public class Calculation {
 
     public void basicCalculation(double input) {
         double numberStored = calculationData.getNumberStored();
-        System.out.println("BSC: " + calculationData.getOperatorAssigned());
         switch (calculationData.getOperatorAssigned()) {
             case PLUS -> numberStored += input;
             case MINUS -> numberStored -= input;
